@@ -45,7 +45,7 @@ nav a:hover{opacity:1;color:var(--accent)}
 
 /* hero */
 .hero{background:var(--hero);color:var(--hero-ink);position:relative;overflow:hidden}
-.hero .wrap{padding-block:72px 64px;display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:end}
+.hero .wrap{padding-block:96px 0;display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:end}
 .hero h1{font-size:clamp(3.2rem,10vw,7rem);font-weight:800;font-style:italic}
 .hero h1 em{font-style:italic;color:var(--accent)}
 .hero p{max-width:34em;opacity:.85;margin:20px 0 0}
@@ -112,6 +112,42 @@ button.go{justify-self:start;font:700 .95rem Barlow,sans-serif;text-transform:up
 footer{background:var(--hero);color:var(--hero-ink)}
 footer .wrap{padding-block:32px calc(32px + env(safe-area-inset-bottom,0px));display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;font-size:.9rem}
 footer a{color:var(--accent)}
+
+/* dynamic hero */
+.hero{min-height:min(92vh,860px);display:flex;flex-direction:column;justify-content:flex-end;isolation:isolate}
+.herogrid{position:relative;z-index:2}
+.slides{position:absolute;inset:0;z-index:0}
+.slides img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity 1.6s ease,transform 7s ease-out}
+.slides img.on{opacity:.55;transform:scale(1)}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,var(--hero) 15%,transparent 75%),linear-gradient(0deg,var(--hero),transparent 45%);pointer-events:none}
+.speed{position:absolute;inset:0;width:100%;height:100%;z-index:1;opacity:.35}
+.speed rect{fill:var(--accent)}
+.speed .lines rect{animation:zip 2.6s linear infinite}
+.speed .lines rect:nth-child(2n){animation-duration:1.9s;fill:var(--hero-ink)}
+.speed .lines rect:nth-child(3n){animation-duration:3.4s;animation-delay:-1.2s}
+@keyframes zip{from{transform:translateX(-110%)}to{transform:translateX(220%)}}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.ctas .cta{margin:0}
+.cta.ghost{background:transparent;color:var(--hero-ink);border:2px solid var(--hero-ink)}
+.lights{justify-self:end;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:20px 22px;min-width:0;backdrop-filter:blur(4px)}
+.lamps{display:flex;gap:10px;margin-bottom:14px}
+.lamps i{width:26px;height:26px;border-radius:50%;background:#2a0b0e;box-shadow:inset 0 0 0 2px #000;animation:lamp 6s infinite}
+.lamps i:nth-child(2){animation-delay:.5s}.lamps i:nth-child(3){animation-delay:1s}.lamps i:nth-child(4){animation-delay:1.5s}.lamps i:nth-child(5){animation-delay:2s}
+@keyframes lamp{0%,8%{background:#2a0b0e}10%,60%{background:#ff1e2d;box-shadow:0 0 18px #ff1e2d}62%,100%{background:#2a0b0e;box-shadow:inset 0 0 0 2px #000}}
+.clock{display:flex;gap:14px;margin-top:6px}
+.clock div{text-align:center}
+.clock b{display:block;font-size:clamp(1.8rem,4vw,2.6rem);line-height:1;color:var(--accent);font-weight:500}
+.clock span{font:600 .65rem/1 Barlow,sans-serif;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+.clockfor{margin-top:12px;font-weight:600}
+.ticker{position:relative;z-index:2;overflow:hidden;border-top:1px solid rgba(255,255,255,.1);margin-top:40px;padding-block:12px;white-space:nowrap}
+.track{display:inline-block;animation:tick 45s linear infinite;font:800 1.1rem "Barlow Condensed",sans-serif;font-style:italic;text-transform:uppercase;letter-spacing:.04em}
+.track span{margin-right:36px;opacity:.8}.track span b{color:var(--accent);margin-right:8px}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+.rv.in{opacity:1;transform:none}
+.hero .rv:nth-child(2){transition-delay:.1s}.hero .rv:nth-child(3){transition-delay:.2s}.hero .rv:nth-child(4){transition-delay:.3s}
+@media (max-width:720px){.lights{justify-self:start}}
+@media (prefers-reduced-motion: reduce){.speed .lines rect,.track,.lamps i{animation:none}.rv{opacity:1;transform:none;transition:none}.slides img{transition:none}}
 </style>
 </head>
 <body>
@@ -130,16 +166,30 @@ footer a{color:var(--accent)}
 </header>
 
 <main id="top">
-  <div class="hero">
-    <div class="wrap">
-      <div>
-        <div class="label" style="color:var(--accent)">2027 season · Club100 Junior SLW</div>
-        <h1>Revilo Racing<br><em>#24LC</em> Racing</h1>
-        <p>Luke races in the Club100 Junior Super-Lightweight class, entered in both the Northern and Southern championships for 2027, plus an international weekend at South Garda Karting in Italy.</p>
-        <a class="cta" href="#partners">Partner with us</a>
+  <div class="hero" id="hero">
+    <div class="slides" id="slides" aria-hidden="true"></div>
+    <svg class="speed" viewBox="0 0 1200 600" preserveAspectRatio="none" aria-hidden="true">
+      <g class="lines">
+        <rect x="0" y="80" width="420" height="3"/><rect x="200" y="150" width="680" height="2"/><rect x="0" y="230" width="300" height="4"/>
+        <rect x="500" y="300" width="560" height="2"/><rect x="100" y="380" width="380" height="3"/><rect x="650" y="450" width="480" height="2"/>
+        <rect x="0" y="520" width="620" height="3"/>
+      </g>
+    </svg>
+    <div class="wrap herogrid">
+      <div class="herotext">
+        <div class="label rv" style="color:var(--accent)">2027 season · Club100 Junior SLW</div>
+        <h1 class="rv">Revilo Racing<br><em>#24LC</em> Racing</h1>
+        <p class="rv">Luke races in the Club100 Junior Super-Lightweight class, entered in both the Northern and Southern championships for 2027, plus an international weekend at South Garda Karting in Italy.</p>
+        <div class="ctas rv"><a class="cta" href="#partners">Partner with us</a><a class="cta ghost" href="#calendar">See the calendar</a></div>
       </div>
-      <div class="plate" aria-label="Race plate #24LC"><small>Driver</small><b>#24LC</b><small>Luke</small></div>
+      <div class="lights rv" aria-label="Countdown to next race">
+        <div class="lamps" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="label" style="color:var(--hero-ink);opacity:.7">Lights out in</div>
+        <div class="clock mono" id="clock"></div>
+        <div class="clockfor" id="clockfor"></div>
+      </div>
     </div>
+    <div class="ticker" aria-hidden="true"><div class="track" id="ticker"></div></div>
     <div class="chequer" aria-hidden="true"></div>
   </div>
 
@@ -323,6 +373,38 @@ document.getElementById('enq').addEventListener('submit', async e=>{
     m.textContent='Thank you. Your enquiry has been received and we will be in touch.'; f.reset();
   }catch(_){ m.textContent = CONTACT_EMAIL ? `Sorry, that did not send. Please email ${CONTACT_EMAIL}.` : 'Sorry, enquiries are not switched on yet. Please try again soon.'; }
 });
+/* Edit here: hero photos, files in /img/ (e.g. 'img/hero-1.jpg') */
+const HERO = [];
+(function(){
+  const box=document.getElementById('slides'); if(!HERO.length) return;
+  HERO.forEach((src,i)=>{const im=new Image(); im.src=src; im.alt=''; if(i===0) im.className='on'; box.appendChild(im);});
+  let i=0; const ims=box.children; if(ims.length<2) return;
+  setInterval(()=>{ims[i].classList.remove('on'); i=(i+1)%ims.length; ims[i].classList.add('on');},6000);
+})();
+// countdown
+(function(){
+  const nx=CAL.find(r=>new Date(r[0]+'T23:59:59')>=new Date()); const c=document.getElementById('clock'), f=document.getElementById('clockfor');
+  if(!nx){c.textContent='Season complete';return;}
+  f.textContent=nx[1]+' · '+nx[2];
+  const target=new Date(nx[0]+'T09:00:00');
+  const tick=()=>{let d=Math.max(0,target-new Date()); const u=[[864e5,'days'],[36e5,'hrs'],[6e4,'mins'],[1e3,'secs']];
+    c.innerHTML=u.map(([ms,l])=>{const v=Math.floor(d/ms); d-=v*ms; return `<div><b>${String(v).padStart(2,'0')}</b><span>${l}</span></div>`}).join('');};
+  tick(); setInterval(tick,1000);
+})();
+// ticker
+(function(){
+  const up=CAL.filter(r=>new Date(r[0]+'T23:59:59')>=new Date());
+  const html=up.map(r=>`<span><b>${fmt(r[0])}</b>${r[2]}</span>`).join('');
+  document.getElementById('ticker').innerHTML=html+html;
+})();
+// reveal on scroll
+(function(){
+  document.querySelectorAll('section .head, .stat, .pack, .tbl, .next, #driver .cols > div').forEach(el=>el.classList.add('rv'));
+  const els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)){els.forEach(e=>e.classList.add('in'));return;}
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
+  els.forEach(e=>io.observe(e));
+})();
 document.getElementById('yr').textContent=new Date().getFullYear();
 </script>
 </body>
