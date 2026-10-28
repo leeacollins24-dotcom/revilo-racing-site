@@ -181,6 +181,67 @@ h2{font-size:clamp(1.3rem,2.8vw,1.9rem);letter-spacing:-.01em}
 .label,nav a,th,.tag,.cta,button.go,.filters button{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-stretch:112%;font-weight:600}
 .hero h1 em{font-style:normal}
 .hero h1{max-width:none}
+/* fit one screen */
+.hero{min-height:0!important;height:calc(100svh - var(--navh,52px));max-height:none;overflow:hidden}
+.hero .wrap.herogrid{padding-block:clamp(16px,4vh,48px) 0;flex:1;display:grid;grid-template-columns:1.3fr 1fr;align-items:end;gap:24px}
+.herotext p{margin-top:clamp(8px,1.6vh,18px)!important}
+.ctas{margin-top:clamp(12px,2.4vh,28px)!important}
+.ticker{margin-top:clamp(14px,3vh,36px)!important;padding-block:clamp(6px,1.2vh,12px)}
+.lights{padding:clamp(12px,2vh,20px) 20px}
+.lamps i{width:clamp(16px,2.6vh,26px);height:clamp(16px,2.6vh,26px)}
+@media (max-width:820px) and (orientation:portrait){.hero .wrap.herogrid{grid-template-columns:1fr}.lights{justify-self:stretch}}
+@media (max-width:720px){
+  header.nav .wrap{padding-block:10px}
+  .herotext .label{font-size:.68rem}
+  .herotext p{font-size:.92rem;line-height:1.45}
+  .ctas .cta{padding:10px 14px;font-size:.78rem;flex:1;text-align:center}
+  .ctas{flex-wrap:nowrap}
+  .lights{display:grid;grid-template-columns:auto 1fr;column-gap:14px;align-items:center;padding:12px 14px}
+  .lights .lamps{grid-row:1/3;flex-direction:column;gap:5px;margin:0}
+  .lamps i{width:12px;height:12px}
+  .clock{gap:10px}.clock b{font-size:1.5rem}
+  .clockfor{grid-column:2;margin-top:6px;font-size:.85rem}
+  .ticker{display:none}
+}
+@media (max-width:960px){nav ul{gap:4px 12px}nav a{font-size:.78rem;letter-spacing:.04em}}
+@media (max-width:720px){
+  .menu{display:flex;flex-direction:column;gap:5px;background:none;border:0;padding:8px;cursor:pointer}
+  .menu span{display:block;width:22px;height:2px;background:var(--hero-ink);transition:transform .25s,opacity .25s}
+  .menu[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .menu[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .menu[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  #mainNav{position:absolute;left:0;right:0;top:100%;background:var(--hero);border-top:1px solid rgba(255,255,255,.1);display:none}
+  #mainNav.open{display:block}
+  #mainNav ul{display:flex!important;flex-direction:column;gap:0;padding:6px max(16px,env(safe-area-inset-left,0px)) 14px}
+  #mainNav a{display:block;padding:12px 0;font-size:.95rem;border-bottom:1px solid rgba(255,255,255,.08)}
+  .ctas .cta{white-space:nowrap;font-size:.72rem;letter-spacing:.05em}
+  .hero::after{background:linear-gradient(180deg,rgba(8,9,10,.85) 0%,rgba(8,9,10,.35) 45%,var(--hero) 100%)}
+}
+.menu{display:none}
+@media (max-width:720px){.menu{display:flex}}
+@media (max-height:700px) and (max-width:720px){.herotext p{display:none}}
+/* split hero: photo never under text */
+.hero .wrap.herogrid{width:100%;box-sizing:border-box}
+.hero::after{display:none}
+.slides img{opacity:0}
+.slides img.on{opacity:1}
+.speed{display:none}
+@media (min-aspect-ratio:1/1) and (min-width:721px){
+  .slides{left:42%}
+  .slides::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--hero) 0%,rgba(18,20,23,.55) 12%,transparent 30%),linear-gradient(0deg,rgba(18,20,23,.6),transparent 22%);pointer-events:none}
+  .hero .wrap.herogrid{grid-template-columns:1fr!important;align-content:center;align-items:center}
+  .herotext,.lights{max-width:min(40vw,520px)}
+  .lights{justify-self:start!important;margin-top:clamp(14px,3vh,28px)}
+  .herogrid{display:flex!important;flex-direction:column;justify-content:center;align-items:flex-start!important}
+}
+@media (max-aspect-ratio:1/1), (max-width:720px){
+  .slides{bottom:auto;height:52%}
+  .slides::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,var(--hero) 0%,transparent 35%);pointer-events:none}
+  .hero .wrap.herogrid{display:flex!important;flex-direction:column;justify-content:flex-end;align-items:stretch!important;gap:clamp(10px,2vh,20px)}
+  .lights{justify-self:stretch;max-width:none}
+}
+@media (max-width:720px){.herotext p{display:none}}
+
 .stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 .stat .label{display:block;line-height:1.35;margin-top:6px}
 </style>
@@ -190,7 +251,8 @@ h2{font-size:clamp(1.3rem,2.8vw,1.9rem);letter-spacing:-.01em}
 <header class="nav">
   <div class="wrap">
     <a class="brand" href="#top">Revilo <span>Racing</span></a>
-    <nav aria-label="Main"><ul>
+    <button class="menu" id="menuBtn" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav aria-label="Main" id="mainNav"><ul>
       <li><a href="#driver">Driver</a></li>
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#calendar">Calendar</a></li>
@@ -216,7 +278,7 @@ h2{font-size:clamp(1.3rem,2.8vw,1.9rem);letter-spacing:-.01em}
         <div class="label rv" style="color:var(--accent)">2027 season · Club100 Junior SLW</div>
         <h1 class="rv">Revilo Racing<br><em>#24LC</em> Racing</h1>
         <p class="rv">Luke races in the Club100 Junior Super-Lightweight class, entered in both the Northern and Southern championships for 2027, plus the Rotax Racing World Finals at South Garda Karting in Italy.</p>
-        <div class="ctas rv"><a class="cta" href="#partners">Partner with us</a><a class="cta ghost" href="#calendar">See the calendar</a></div>
+        <div class="ctas rv"><a class="cta" href="#partners">Partner with us</a><a class="cta ghost" href="#calendar">Calendar</a></div>
       </div>
       <div class="lights rv" aria-label="Countdown to next race">
         <div class="lamps" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
@@ -429,11 +491,15 @@ document.getElementById('enq').addEventListener('submit', async e=>{
     m.textContent='Thank you. Your enquiry has been received and we will be in touch.'; f.reset();
   }catch(_){ m.textContent = CONTACT_EMAIL ? `Sorry, that did not send. Please email ${CONTACT_EMAIL}.` : 'Sorry, enquiries are not switched on yet. Please try again soon.'; }
 });
+(function(){const b=document.getElementById('menuBtn'),n=document.getElementById('mainNav');b.addEventListener('click',()=>{const o=n.classList.toggle('open');b.setAttribute('aria-expanded',o)});n.addEventListener('click',e=>{if(e.target.tagName==='A'){n.classList.remove('open');b.setAttribute('aria-expanded','false')}});})();
+(function(){const h=document.querySelector('header.nav');const set=()=>document.documentElement.style.setProperty('--navh',h.offsetHeight+'px');set();addEventListener('resize',set);addEventListener('load',set);if(window.ResizeObserver)new ResizeObserver(set).observe(h);})();
 /* Edit here: hero photos, files in /img/ (e.g. 'img/hero-1.jpg') */
 const HERO = ['img/helmet.jpg','img/kart8.jpg','img/win.jpg','img/hero-1.jpg','img/hero-2.jpg','img/hero-3.jpg'];
+/* focal point of the subject in each photo, x% y% */
+const FOCUS = {'img/helmet.jpg':'72% 38%','img/kart8.jpg':'52% 45%','img/win.jpg':'47% 48%','img/hero-1.jpg':'52% 55%','img/hero-2.jpg':'58% 55%','img/hero-3.jpg':'32% 45%'};
 (function(){
   const box=document.getElementById('slides'); if(!HERO.length) return;
-  HERO.forEach((src,i)=>{const im=new Image(); im.src=src; im.alt=''; if(/helmet/.test(src)) im.style.objectPosition=matchMedia('(max-width:720px)').matches?'62% 30%':'50% 42%'; if(i===0) im.className='on'; box.appendChild(im);});
+  HERO.forEach((src,i)=>{const im=new Image(); im.src=src; im.alt=''; im.style.objectPosition=FOCUS[src]||'50% 50%'; if(i===0) im.className='on'; box.appendChild(im);});
   let i=0; const ims=box.children; if(ims.length<2) return;
   setInterval(()=>{ims[i].classList.remove('on'); i=(i+1)%ims.length; ims[i].classList.add('on');},6000);
 })();
