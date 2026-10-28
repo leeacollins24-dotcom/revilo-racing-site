@@ -121,6 +121,9 @@ footer a{color:var(--accent)}
 .socials a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;padding:9px 14px;border:1px solid var(--line);border-radius:999px;background:var(--panel)}
 .socials svg{width:18px;height:18px;fill:currentColor}
 footer .socials a{background:transparent;border-color:rgba(255,255,255,.2);color:var(--hero-ink)}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.duo > *{min-width:0}
+.podium.tall img{aspect-ratio:3/4;object-position:50% 25%}
 /* dynamic hero */
 .hero{min-height:min(92vh,860px);display:flex;flex-direction:column;justify-content:flex-end;isolation:isolate}
 .herogrid{position:relative;z-index:2}
@@ -213,7 +216,7 @@ footer .socials a{background:transparent;border-color:rgba(255,255,255,.2);color
         <div class="socials"><a href="https://www.instagram.com/24lc_racing/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM12 2c-2.7 0-3.1 0-4.1.1C4.6 2.2 2.2 4.6 2.1 7.9 2 8.9 2 9.3 2 12s0 3.1.1 4.1c.1 3.3 2.5 5.7 5.8 5.8 1 .1 1.4.1 4.1.1s3.1 0 4.1-.1c3.3-.1 5.7-2.5 5.8-5.8.1-1 .1-1.4.1-4.1s0-3.1-.1-4.1c-.1-3.3-2.5-5.7-5.8-5.8C15.1 2 14.7 2 12 2zm0 1.8c2.7 0 3 0 4 .1 2.3.1 3.9 1.7 4 4 .1 1 .1 1.3.1 4s0 3-.1 4c-.1 2.3-1.7 3.9-4 4-1 .1-1.3.1-4 .1s-3 0-4-.1c-2.3-.1-3.9-1.7-4-4-.1-1-.1-1.3-.1-4s0-3 .1-4c.1-2.3 1.7-3.9 4-4 1-.1 1.3-.1 4-.1z"/></svg>Instagram</a><a href="https://www.tiktok.com/@24lc_racing" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2h-3.3v13.4a2.9 2.9 0 1 1-2-2.8V9.2a6.2 6.2 0 1 0 5.3 6.2V8.6a7.9 7.9 0 0 0 4.4 1.4V6.7a4.5 4.5 0 0 1-4.4-4.7z"/></svg>TikTok</a></div>
       </div>
       <div>
-        <figure class="podium rv"><img src="img/podium.jpg" alt="Luke on the top step of the podium at Kart Silverstone" loading="lazy"><figcaption>Top step at Kart Silverstone</figcaption></figure>
+        <div class="duo rv"><figure class="podium tall"><img src="img/helmet.jpg" alt="Luke in his helmet and race suit before a session" loading="lazy"><figcaption>Ready to go</figcaption></figure><figure class="podium tall"><img src="img/podium.jpg" alt="Luke on the top step of the podium at Kart Silverstone" loading="lazy"><figcaption>Top step at Kart Silverstone</figcaption></figure></div>
         <div class="stats" id="stats"></div>
       </div>
     </div>
@@ -388,7 +391,7 @@ document.getElementById('enq').addEventListener('submit', async e=>{
   }catch(_){ m.textContent = CONTACT_EMAIL ? `Sorry, that did not send. Please email ${CONTACT_EMAIL}.` : 'Sorry, enquiries are not switched on yet. Please try again soon.'; }
 });
 /* Edit here: hero photos, files in /img/ (e.g. 'img/hero-1.jpg') */
-const HERO = ['img/hero-1.jpg','img/hero-2.jpg','img/hero-3.jpg'];
+const HERO = matchMedia('(max-width:720px)').matches ? ['img/helmet.jpg','img/hero-2.jpg','img/hero-1.jpg'] : ['img/hero-1.jpg','img/hero-2.jpg','img/hero-3.jpg'];
 (function(){
   const box=document.getElementById('slides'); if(!HERO.length) return;
   HERO.forEach((src,i)=>{const im=new Image(); im.src=src; im.alt=''; if(i===0) im.className='on'; box.appendChild(im);});
