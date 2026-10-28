@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Revilo Racing | #24LC Racing</title>
+<meta name="description" content="Revilo Racing: Luke, #24LC Racing, Club100 Junior SLW karting, 2027 season.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,800;1,800&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{
+  --bg:#f4f3ef; --panel:#ffffff; --ink:#15171a; --muted:#5d636b; --line:#dcdad3;
+  --accent:#e8b600; --accent-ink:#15171a; --red:#c8102e; --past:#9aa0a6;
+  --hero:#121417; --hero-ink:#f4f3ef;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1113; --panel:#181b1f; --ink:#eceae4; --muted:#9aa1a9; --line:#2a2f35;
+  --accent:#f2c400; --accent-ink:#121417; --red:#ff4d5e; --past:#5d646c;
+  --hero:#08090a; --hero-ink:#eceae4; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1113; --panel:#181b1f; --ink:#eceae4; --muted:#9aa1a9; --line:#2a2f35;
+  --accent:#f2c400; --accent-ink:#121417; --red:#ff4d5e; --past:#5d646c;
+  --hero:#08090a; --hero-ink:#eceae4; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 Barlow,"Helvetica Neue",Arial,sans-serif}
+a{color:inherit}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",sans-serif;text-transform:uppercase;letter-spacing:.01em;line-height:1;text-wrap:balance;margin:0}
+h2{font-size:clamp(2rem,5vw,3rem);font-weight:800;font-style:italic}
+.label{font:600 .78rem/1 Barlow,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+
+/* nav */
+header.nav{position:sticky;top:0;z-index:20;background:var(--hero);color:var(--hero-ink);padding-top:env(safe-area-inset-top,0px)}
+header.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.brand{font:800 1.35rem/1 "Barlow Condensed",sans-serif;text-transform:uppercase;font-style:italic;text-decoration:none;letter-spacing:.02em}
+.brand span{color:var(--accent)}
+nav ul{display:flex;flex-wrap:wrap;gap:4px 18px;list-style:none;margin:0;padding:0}
+nav a{text-decoration:none;font-weight:600;font-size:.92rem;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+nav a:hover{opacity:1;color:var(--accent)}
+@media (max-width:720px){nav ul{display:none}}
+
+/* hero */
+.hero{background:var(--hero);color:var(--hero-ink);position:relative;overflow:hidden}
+.hero .wrap{padding-block:72px 64px;display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:end}
+.hero h1{font-size:clamp(3.2rem,10vw,7rem);font-weight:800;font-style:italic}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero p{max-width:34em;opacity:.85;margin:20px 0 0}
+.plate{justify-self:end;background:var(--accent);color:var(--accent-ink);border-radius:6px;padding:18px 26px;transform:skewX(-8deg);text-align:center;min-width:0}
+.plate b{display:block;font:800 clamp(4rem,12vw,8rem)/.9 "Barlow Condensed",sans-serif;font-style:italic}
+.plate small{display:block;font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:.8rem}
+.chequer{height:18px;background-image:conic-gradient(var(--hero-ink) 25%,transparent 0 50%,var(--hero-ink) 0 75%,transparent 0);background-size:18px 18px;opacity:.9}
+.cta{display:inline-block;margin-top:28px;background:var(--accent);color:var(--accent-ink);font-weight:700;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;padding:12px 22px;border-radius:4px}
+@media (max-width:720px){.hero .wrap{grid-template-columns:1fr}.plate{justify-self:start}}
+
+section{padding-block:72px}
+section + section{border-top:1px solid var(--line)}
+.head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:32px}
+.stat{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:6px;padding:16px}
+.stat b{display:block;font:800 2.2rem/1 "Barlow Condensed",sans-serif}
+@media (max-width:720px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.cols > *{min-width:0}
+@media (max-width:820px){.cols{grid-template-columns:1fr}}
+
+/* next race */
+.next{background:var(--hero);color:var(--hero-ink);border-radius:8px;padding:22px;display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center;margin-bottom:24px}
+.next h3{font-size:1.8rem;font-style:italic}
+.count{display:flex;gap:14px}
+.count div{text-align:center}
+.count b{display:block;font:500 2rem/1 "JetBrains Mono",monospace;color:var(--accent)}
+
+/* tables */
+.tbl{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.97rem}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line)}
+th{font:600 .75rem/1 Barlow,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
+tr.past td{color:var(--past)}
+tr.intl td:first-child{box-shadow:inset 4px 0 var(--red)}
+tfoot td{font-weight:700;border-bottom:0;background:var(--bg)}
+.tag{display:inline-block;font:600 .7rem/1 Barlow,sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:5px 7px;border-radius:3px;border:1px solid var(--line)}
+.tag.n{border-color:var(--muted)}
+.tag.s{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.tag.i{background:var(--red);color:#fff;border-color:var(--red)}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filters button{font:600 .85rem Barlow,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:8px 14px;border-radius:4px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.note{color:var(--muted);font-size:.92rem;margin-top:12px}
+
+/* sponsors */
+.packs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.pack{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:22px;display:flex;flex-direction:column;gap:10px}
+.pack h3{font-size:1.6rem;font-style:italic}
+.pack ul{margin:0;padding-left:1.1em}
+@media (max-width:820px){.packs{grid-template-columns:1fr}}
+.logos{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:24px}
+.slot{border:2px dashed var(--line);border-radius:8px;aspect-ratio:3/2;display:grid;place-items:center;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:.8rem;text-align:center;padding:8px}
+
+/* enquiry */
+form{display:grid;gap:14px}
+label{display:grid;gap:6px;font-weight:600;font-size:.9rem}
+input,textarea,select{font:inherit;padding:11px 12px;border:1px solid var(--line);border-radius:4px;background:var(--panel);color:var(--ink)}
+button.go{justify-self:start;font:700 .95rem Barlow,sans-serif;text-transform:uppercase;letter-spacing:.08em;background:var(--accent);color:var(--accent-ink);border:0;border-radius:4px;padding:13px 24px;cursor:pointer}
+.msg{padding:12px 14px;border-radius:6px;background:var(--panel);border:1px solid var(--line)}
+
+footer{background:var(--hero);color:var(--hero-ink)}
+footer .wrap{padding-block:32px calc(32px + env(safe-area-inset-bottom,0px));display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;font-size:.9rem}
+footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">Revilo <span>Racing</span></a>
+    <nav aria-label="Main"><ul>
+      <li><a href="#driver">Driver</a></li>
+      <li><a href="#calendar">Calendar</a></li>
+      <li><a href="#results">Results</a></li>
+      <li><a href="#partners">Partners</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <div class="label" style="color:var(--accent)">2027 season · Club100 Junior SLW</div>
+        <h1>Revilo Racing<br><em>#24LC</em> Racing</h1>
+        <p>Luke races in the Club100 Junior Super-Lightweight class, entered in both the Northern and Southern championships for 2027, plus an international weekend at South Garda Karting in Italy.</p>
+        <a class="cta" href="#partners">Partner with us</a>
+      </div>
+      <div class="plate" aria-label="Race plate #24LC"><small>Driver</small><b>#24LC</b><small>Luke</small></div>
+    </div>
+    <div class="chequer" aria-hidden="true"></div>
+  </div>
+
+  <section id="driver">
+    <div class="wrap cols">
+      <div>
+        <div class="label">The driver</div>
+        <h2>Luke</h2>
+        <p>Luke drives in Club100, the arrive-and-drive championship where every kart is prepared and allocated by the organisers, so results come down to the driver. For 2027 he is registered for both Junior championships and is entered for every round.</p>
+        <p>The season runs from the January opener to the Silverstone finale in November, taking in circuits from Rowrah in Cumbria to Llandow in Wales, with a race weekend at South Garda Karting, Lonato, in September.</p>
+      </div>
+      <div>
+        <div class="stats" id="stats"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="calendar">
+    <div class="wrap">
+      <div class="head">
+        <div><div class="label">Where to watch</div><h2>2027 Calendar</h2></div>
+        <div class="filters" role="group" aria-label="Filter">
+          <button data-f="all" aria-pressed="true">All</button>
+          <button data-f="North" aria-pressed="false">North</button>
+          <button data-f="South" aria-pressed="false">South</button>
+          <button data-f="International" aria-pressed="false">International</button>
+        </div>
+      </div>
+      <div class="next" id="next"></div>
+      <div class="tbl"><table>
+        <thead><tr><th>Date</th><th>Event</th><th>Circuit</th><th>Series</th></tr></thead>
+        <tbody id="cal"></tbody>
+        <tfoot><tr><td colspan="4" id="calTotal"></td></tr></tfoot>
+      </table></div>
+      <p class="note">Dates from the official Club100 2027 calendars. Northern dates show the race day; Southern rounds run across the Saturday and Sunday.</p>
+    </div>
+  </section>
+
+  <section id="results">
+    <div class="wrap">
+      <div class="head"><div><div class="label">Round by round</div><h2>Results</h2></div></div>
+      <div class="tbl"><table>
+        <thead><tr><th>Round</th><th>Circuit</th><th>Series</th><th>Qualifying</th><th>Final</th><th>Points</th></tr></thead>
+        <tbody id="res"></tbody>
+        <tfoot><tr><td colspan="5">Season total</td><td id="resTotal">0</td></tr></tfoot>
+      </table></div>
+      <p class="note" id="resNote"></p>
+    </div>
+  </section>
+
+  <section id="partners">
+    <div class="wrap">
+      <div class="head"><div><div class="label">Sponsorship</div><h2>Partner with #24LC</h2></div></div>
+      <p style="max-width:44em">A full 2027 programme across two national championships and an international event puts your brand in front of race-day crowds, paddock families and our online audience at every round. Every package is tailored, so tell us what you would like to achieve.</p>
+      <div class="packs">
+        <div class="pack"><div class="label">Option 1</div><h3>Supporter</h3><ul><li>Name and logo on this website</li><li>Thank-you mentions on our race updates</li></ul></div>
+        <div class="pack"><div class="label">Option 2</div><h3>Partner</h3><ul><li>Logo on race wear and kit</li><li>Website and race update features</li><li>Race-day photos for your own use</li></ul></div>
+        <div class="pack"><div class="label">Option 3</div><h3>Title partner</h3><ul><li>Lead branding across the programme</li><li>Hospitality at a round of your choice</li><li>Content made for your channels</li></ul></div>
+      </div>
+      <div class="logos" aria-label="Our partners">
+        <div class="slot">Your logo here</div><div class="slot">Your logo here</div><div class="slot">Your logo here</div><div class="slot">Your logo here</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap cols">
+      <div>
+        <div class="label">Get in touch</div>
+        <h2>Sponsorship enquiry</h2>
+        <p>Fill in the form and we will come back to you.</p>
+        <p id="emailLine" class="note"></p>
+      </div>
+      <form id="enq" novalidate>
+        <label>Your name<input name="name" required autocomplete="name"></label>
+        <label>Company<input name="company" autocomplete="organization"></label>
+        <label>Email<input name="email" type="email" required autocomplete="email"></label>
+        <label>Interested in<select name="level"><option>Supporter</option><option>Partner</option><option>Title partner</option><option>Not sure yet</option></select></label>
+        <label>Message<textarea name="message" rows="4"></textarea></label>
+        <button class="go" type="submit">Send enquiry</button>
+        <div class="msg" id="formMsg" hidden></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="yr"></span> Revilo Racing · #24LC Racing</div>
+    <div><a href="/family/">Family login</a></div>
+  </div>
+</footer>
+
+<script>
+/* Edit here: season calendar [date ISO, event, circuit, series] */
+const CAL = [
+  ['2027-01-23','Pre-season test and season opener','Buckmore Park','Both'],
+  ['2027-02-06','Academy 1','Shenington','Both'],
+  ['2027-02-07','Academy 2','Shenington','Both'],
+  ['2027-02-20','Academy 3','Buckmore Park','South'],
+  ['2027-03-13','Round 1','Whilton Mill','South'],
+  ['2027-04-03','Round 1','Glan y Gors','North'],
+  ['2027-04-17','Round 2','Rissington','South'],
+  ['2027-05-09','Round 2','Rowrah','North'],
+  ['2027-05-15','Round 3','Llandow','South'],
+  ['2027-05-30','Round 3','PF International','North'],
+  ['2027-06-13','Round 4','Whilton Mill','North'],
+  ['2027-06-26','Round 4','Shenington','South'],
+  ['2027-07-17','Round 5','Warden Law','North'],
+  ['2027-07-24','Round 5','Lydd','South'],
+  ['2027-09-02','South Garda Karting','Lonato, Italy','International'],
+  ['2027-09-18','Round 6','Ellough Park','South'],
+  ['2027-10-02','Round 7','Buckmore Park','South'],
+  ['2027-10-24','Round 6','Three Sisters','North'],
+  ['2027-11-06','Round 7','Warden Law','North'],
+  ['2027-11-20','Round 8','Silverstone','South']
+];
+/* Edit here: results [date ISO, round, circuit, series, qualifying, final, points] */
+const RES = [];
+
+const fmt = d => new Date(d+'T12:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+const span = (d,s) => {
+  if (s==='International') return fmt(d)+' to Sun 5 Sep';
+  if (s==='South' && /^Round/.test(CAL.find(r=>r[0]===d)[1])) { const e=new Date(d+'T12:00:00'); e.setDate(e.getDate()+1); return fmt(d)+' and '+e.toLocaleDateString('en-GB',{weekday:'short',day:'numeric'}); }
+  return fmt(d);
+};
+const today = new Date(); today.setHours(0,0,0,0);
+const tagCls = {North:'n',South:'s',International:'i',Both:'n'};
+let filter='all';
+function drawCal(){
+  const rows = CAL.filter(r=>filter==='all'||r[3]===filter||(r[3]==='Both'&&filter!=='International'));
+  document.getElementById('cal').innerHTML = rows.map(r=>{
+    const past = new Date(r[0]+'T23:59:59') < today;
+    return `<tr class="${past?'past':''} ${r[3]==='International'?'intl':''}"><td class="mono">${span(r[0],r[3])}</td><td>${r[1]}</td><td>${r[2]}</td><td><span class="tag ${tagCls[r[3]]}">${r[3]==='Both'?'North and South':r[3]}</span></td></tr>`;
+  }).join('');
+  document.getElementById('calTotal').textContent = `Total: ${rows.length} event${rows.length===1?'':'s'}`;
+}
+document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>{
+  filter=b.dataset.f; document.querySelectorAll('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b)); drawCal();
+}));
+drawCal();
+
+// stats
+const n = s => CAL.filter(r=>r[3]===s||(r[3]==='Both'&&s!=='International')).length;
+const circuits = new Set(CAL.map(r=>r[2])).size;
+document.getElementById('stats').innerHTML = [
+  [n('North'),'Northern events'],[n('South'),'Southern events'],[n('International'),'International'],[CAL.length,'Events in total']
+].map(([v,l])=>`<div class="stat"><b>${v}</b><span class="label">${l}</span></div>`).join('') +
+`<div class="stat" style="grid-column:1/-1"><b>${circuits}</b><span class="label">Different circuits in 2027</span></div>`;
+
+// next race
+(function(){
+  const nx = CAL.find(r=>new Date(r[0]+'T23:59:59')>=today);
+  const el = document.getElementById('next');
+  if(!nx){ el.innerHTML='<h3>Season complete</h3>'; return; }
+  const days = Math.round((new Date(nx[0]+'T00:00:00')-today)/864e5);
+  el.innerHTML = `<div><div class="label" style="color:var(--accent)">Next up</div><h3>${nx[1]} · ${nx[2]}</h3><div class="mono" style="opacity:.8">${span(nx[0],nx[3])} 2027</div></div>
+  <div class="count"><div><b>${days}</b><span class="label" style="color:inherit;opacity:.7">days to go</span></div></div>`;
+})();
+
+// results
+(function(){
+  const tb=document.getElementById('res');
+  if(!RES.length){ tb.innerHTML='<tr><td colspan="6" style="color:var(--muted)">No results yet.</td></tr>';
+    document.getElementById('resNote').textContent='Results are added after each round, starting with Round 1 at Whilton Mill on 13 March 2027.'; return; }
+  let t=0; tb.innerHTML=RES.map(r=>{t+=Number(r[6])||0; return `<tr><td>${r[1]}</td><td>${r[2]}</td><td><span class="tag ${tagCls[r[3]]}">${r[3]}</span></td><td>${r[4]}</td><td>${r[5]}</td><td>${r[6]}</td></tr>`}).join('');
+  document.getElementById('resTotal').textContent=t;
+})();
+
+// enquiry: set CONTACT_EMAIL once an address is chosen
+const CONTACT_EMAIL = '';
+document.getElementById('emailLine').innerHTML = CONTACT_EMAIL ? `Or email <span style="user-select:all">${CONTACT_EMAIL}</span>` : '';
+document.getElementById('enq').addEventListener('submit', async e=>{
+  e.preventDefault();
+  const f=e.target, m=document.getElementById('formMsg');
+  if(!f.name.value.trim()||!f.email.checkValidity()){ m.hidden=false; m.textContent='Please add your name and a valid email address.'; return; }
+  m.hidden=false; m.textContent='Sending...';
+  try{
+    const r = await fetch('/api/enquiry',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.fromEntries(new FormData(f)))});
+    if(!r.ok) throw 0;
+    m.textContent='Thank you. Your enquiry has been received and we will be in touch.'; f.reset();
+  }catch(_){ m.textContent = CONTACT_EMAIL ? `Sorry, that did not send. Please email ${CONTACT_EMAIL}.` : 'Sorry, enquiries are not switched on yet. Please try again soon.'; }
+});
+document.getElementById('yr').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>

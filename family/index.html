@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body style="margin:0">
+<title>24LC Racing 2027</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: pit-wall hub. Sticky tab strip, one view at a time, timing-sheet tables. */
+:root{
+  --bg:#f3f4f6; --panel:#ffffff; --ink:#15181d; --muted:#5b6370; --line:#d9dde3;
+  --accent:#c8102e; --accent-ink:#ffffff; --chip:#eef0f3;
+  --ok:#1f7a4d; --warn:#9a6200; --info:#2557a7;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Source Sans 3","Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1115; --panel:#171a20; --ink:#e8ebef; --muted:#9aa3b0; --line:#2a2f38;
+  --accent:#ff4d5e; --accent-ink:#14060a; --chip:#222731; --ok:#4cc98a; --warn:#e2a93b; --info:#7aa7f0; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1115; --panel:#171a20; --ink:#e8ebef; --muted:#9aa3b0; --line:#2a2f38;
+  --accent:#ff4d5e; --accent-ink:#14060a; --chip:#222731; --ok:#4cc98a; --warn:#e2a93b; --info:#7aa7f0; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--panel)}
+.wrap{max-width:980px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{background:var(--panel);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:18px 10px}
+.plate{display:inline-flex;align-items:center;gap:10px}
+.num{font-family:var(--display);font-weight:700;font-size:28px;background:var(--accent);color:var(--accent-ink);padding:0 10px;border-radius:4px;line-height:1.3;letter-spacing:.02em}
+h1{font-family:var(--display);font-weight:700;font-size:30px;margin:0;letter-spacing:.01em;text-wrap:balance}
+.sub{color:var(--muted);font-size:14px}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--panel);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+nav.tabs a{flex:0 0 auto;font-family:var(--display);font-weight:600;font-size:17px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-decoration:none;padding:10px 10px;border-bottom:3px solid transparent}
+nav.tabs a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent)}
+nav.tabs a:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+main{padding-block:20px 48px}
+section{display:grid;gap:16px}
+h2{font-family:var(--display);font-weight:700;font-size:26px;margin:0;text-wrap:balance}
+h3{font-family:var(--display);font-weight:600;font-size:20px;margin:8px 0 0;letter-spacing:.02em}
+p{margin:0;max-width:68ch}
+.note{color:var(--muted);font-size:14px}
+a{color:var(--info)}
+.hero{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.tile{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px;display:grid;gap:4px;min-width:0}
+.tile .k{font-family:var(--display);text-transform:uppercase;letter-spacing:.08em;font-size:13px;color:var(--muted)}
+.tile .v{font-family:var(--display);font-weight:700;font-size:24px;line-height:1.15}
+.tile .d{font-size:14px;color:var(--muted)}
+.count{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--accent)}
+.tbl{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:6px}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:13px;color:var(--muted);background:var(--chip)}
+tr:last-child td{border-bottom:0}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+td.date{font-family:var(--mono);font-size:13.5px;white-space:nowrap;font-variant-numeric:tabular-nums}
+tr.total td{font-weight:600;background:var(--chip)}
+tr.past td{color:var(--muted)}
+tr.next td{box-shadow:inset 3px 0 0 var(--accent)}
+.chip{display:inline-block;font-size:12.5px;font-weight:600;padding:1px 8px;border-radius:99px;background:var(--chip);color:var(--muted);white-space:nowrap}
+.chip.ok{color:var(--ok)} .chip.warn{color:var(--warn)} .chip.info{color:var(--info)} .chip.red{color:var(--accent)}
+.tag{font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:0 6px;border:1px solid var(--line);border-radius:3px;color:var(--muted)}
+ul.plain{margin:0;padding-left:20px;display:grid;gap:6px;max-width:72ch}
+.contacts{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.contact{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px;display:grid;gap:6px;min-width:0}
+.contact b{font-family:var(--display);font-size:19px;font-weight:700}
+.sel{font-family:var(--mono);font-size:13.5px;user-select:all;overflow-wrap:anywhere}
+.copy{justify-self:start;font:inherit;font-size:13px;padding:2px 10px;border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:4px;cursor:pointer}
+.copy:focus-visible{outline:2px solid var(--accent)}
+dl{margin:0;display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:10px 18px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px}
+dt{font-family:var(--display);font-weight:700;font-size:18px}
+dd{margin:0;min-width:0}
+@media (max-width:560px){dl{grid-template-columns:1fr}dd{margin-bottom:6px}}
+.flag{border-left:4px solid var(--accent);background:var(--panel);padding:12px 14px;border-radius:0 6px 6px 0}
+footer{color:var(--muted);font-size:13px;padding-block:0 32px}
+@media (prefers-reduced-motion:no-preference){section{animation:none}}
+</style>
+
+<header class="top"><div class="wrap brand">
+  <div class="plate"><span class="num">24LC</span><h1>Luke’s 2027 season and Lake Garda trip</h1></div>
+  <div class="sub">Created by Lee Collins · Version 1 · 28 Oct 2026</div>
+</div></header>
+
+<nav class="tabs" aria-label="Sections"><div class="wrap">
+  <a href="#home">Home</a><a href="#calendar">Calendar</a><a href="#trip">Garda trip</a><a href="#bookings">Bookings</a><a href="#reminders">Reminders</a><a href="#contacts">Contacts</a><a href="#costs">Costs</a><a href="#decisions">Decisions</a><a href="#glossary">Glossary</a><a href="#files">Files</a>
+</div></nav>
+
+<main class="wrap">
+
+<section id="v-home">
+  <div class="hero">
+    <div class="tile"><span class="k">Next race</span><span class="v" id="nextName">…</span><span class="d" id="nextWhen"></span></div>
+    <div class="tile"><span class="k">Lake Garda trip</span><span class="v">Sat 7 Aug to Sat 11 Sep</span><span class="d">35 nights · sail Hull <span class="count" id="tripCount"></span></span></div>
+    <div class="tile"><span class="k">Big race</span><span class="v">South Garda Karting</span><span class="d">Lonato, Italy · Thu 2 to Sun 5 Sep · entry confirmed</span></div>
+  </div>
+  <div class="flag"><b>All set:</b> Luke is registered for both Club100 Junior championships and booked and confirmed for every 2027 round.</div>
+  <h2>Next deadlines</h2>
+  <div class="tbl"><table><thead><tr><th>Date</th><th>What</th><th>Status</th></tr></thead><tbody id="deadlines"></tbody></table></div>
+  <p class="note">Luke races Club100 Junior Super-Lightweight (SLW), North and South. He turns 14 on 30 May 2027.</p>
+</section>
+
+<section id="v-calendar" hidden>
+  <h2>Racing calendar 2027</h2>
+  <p class="note">Junior SLW dates from the Club100 website, checked 28 Oct 2026: <a href="https://club100.co.uk/series/junior-southern-championship-2027/" target="_blank" rel="noopener">Southern</a>, <a href="https://club100.co.uk/series/junior-northern-championship-2027/" target="_blank" rel="noopener">Northern</a>. Always check before relying on a date; Ellough has already moved once.</p>
+  <div class="tbl"><table><thead><tr><th>Date</th><th>Event</th><th>Venue</th><th>Series</th><th>Note</th></tr></thead><tbody id="cal"></tbody></table></div>
+  <p class="note">Totals: 15 championship rounds (8 South, 7 North), 3 optional Academy days, 1 pre-season test, 1 event in Italy.</p>
+  <h3>Still to confirm</h3>
+  <ul class="plain">
+    <li>Daniel Ricciardo Series: no 2027 calendar yet. Its Cadet series is for ages 8 to 14, so Luke’s 2027 eligibility needs checking. <a href="https://danielricciardoseries.com/arrive-n-drive/" target="_blank" rel="noopener">DRS</a></li>
+    <li>Rotax Racing Club International Finals, 16 to 19 Sep 2027, venue to be confirmed. Clashes with Ellough if entered.</li>
+  </ul>
+</section>
+
+<section id="v-trip" hidden>
+  <h2>Lake Garda trip</h2>
+  <p>Eric II with Lee, Deb, Luke and Donald. Stops and dates agreed 28 Oct 2026. Stops marked <span class="chip warn">updating</span> are being re-checked for best rating and location; the roads and the return route are being redesigned for scenery.</p>
+  <div class="tbl"><table><thead><tr><th>Dates</th><th>Stop</th><th class="n">Nights</th><th>Stay</th></tr></thead><tbody id="trip"></tbody></table></div>
+  <h3>Options added</h3>
+  <ul class="plain">
+    <li><b>Aletsch Glacier</b>, Sat 21 Aug on the way to Zermatt. Dogs ride the cable cars on a lead (half price if 30 cm or taller). <a href="https://aletscharena.ch/en/faq" target="_blank" rel="noopener">Aletsch Arena</a></li>
+    <li><b>Venice day trip</b> by train from Desenzano on a free day (30 Aug to 1 Sep). Dogs allowed on a lead and muzzled, with a pet ticket. <a href="https://www.trenitalia.com/it/html/trenitalia/trasporto-animali-.html" target="_blank" rel="noopener">Trenitalia</a></li>
+    <li><b>Taxi lap with Misha Charoudin</b> (Porsche 911 GT3), Nürburgring: enquiry sent for 11 to 15 Aug. <a href="https://track-speed.com/product/nurburgring-taxi-lap-misha-charoudin/" target="_blank" rel="noopener">Track Speed</a></li>
+  </ul>
+</section>
+
+<section id="v-bookings" hidden>
+  <h2>Bookings tracker</h2>
+  <div class="tbl"><table><thead><tr><th>Booking</th><th>Status</th><th>When</th></tr></thead><tbody id="bookings"></tbody></table></div>
+</section>
+
+<section id="v-reminders" hidden>
+  <h2>Reminders set</h2>
+  <p class="note">These are in the Reminders app on your phone.</p>
+  <div class="tbl"><table><thead><tr><th>Date</th><th>Reminder</th></tr></thead><tbody id="reminders"></tbody></table></div>
+</section>
+
+<section id="v-contacts" hidden>
+  <h2>Contacts</h2>
+  <div class="contacts" id="contacts"></div>
+</section>
+
+<section id="v-costs" hidden>
+  <h2>Club100 entries and costs</h2>
+  <p class="note">2026 published prices, including VAT.</p>
+  <div class="tbl"><table><thead><tr><th>Item</th><th class="n">Qty</th><th class="n">Each</th><th class="n">Total</th></tr></thead><tbody>
+    <tr><td>Championship registration (South and North)</td><td class="n">2</td><td class="n">£60</td><td class="n">£120</td></tr>
+    <tr><td>Round entries (8 South, 7 North)</td><td class="n">15</td><td class="n">£315</td><td class="n">£4,725</td></tr>
+    <tr class="total"><td>Total</td><td class="n">17</td><td class="n"></td><td class="n">£4,845</td></tr>
+  </tbody></table></div>
+  <p class="note">Not included: Academy days £225 each; 11-minute pre-event test £56; 30-minute test £138; £45 non-refundable deposit per round.</p>
+  <h2>Lake Garda trip costs</h2>
+  <p>Full trip costs live in the Excel workbook (Eric_II_Lake_Garda_2027_Costs.xlsx), being updated with the new route.</p>
+</section>
+
+<section id="v-decisions" hidden>
+  <h2>Decisions log</h2>
+  <div class="tbl"><table><thead><tr><th>Date</th><th>Decision</th></tr></thead><tbody id="decisions"></tbody></table></div>
+</section>
+
+<section id="v-glossary" hidden>
+  <h2>Glossary</h2>
+  <dl id="glossary"></dl>
+</section>
+
+<section id="v-files" hidden>
+  <h2>Files</h2>
+  <div class="tbl"><table><thead><tr><th>File</th><th>Version</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Eric_II_Lake_Garda_2027_Itinerary.docx</td><td class="date">28 Oct 2026 v2</td><td><span class="chip warn">updating</span></td></tr>
+    <tr><td>Eric_II_Lake_Garda_2027_Costs.xlsx</td><td class="date">28 Oct 2026 v1</td><td><span class="chip warn">updating</span></td></tr>
+    <tr><td>Eric_II_Lake_Garda_2027_Checklist.docx</td><td class="date">28 Oct 2026 v1</td><td><span class="chip warn">updating</span></td></tr>
+    <tr><td>Luke_2027_Season_Index.docx</td><td class="date">28 Oct 2026 v1</td><td><span class="chip ok">current</span></td></tr>
+  </tbody></table></div>
+  <p class="note">Files are sent in the Claude chat and saved to the Claude Documents folder on Google Drive once confirmed final.</p>
+</section>
+
+</main>
+<footer class="wrap">Created by Lee Collins. Ask Claude in the chat to update anything on this page.</footer>
+
+<script>
+const D = s => new Date(s + 'T12:00:00');
+const fmt = d => d.toLocaleDateString('en-GB', {weekday:'short', day:'numeric', month:'short', year:'numeric'});
+const CAL = [
+  ['2027-01-23','Pre-season test and Season Opener','Buckmore Park','Club100','From Club100 document'],
+  ['2027-02-06','Academy 1','Shenington','North and South','Optional'],
+  ['2027-02-07','Academy 2','Shenington','North and South','Optional'],
+  ['2027-02-20','Academy 3','Buckmore Park','South','Optional'],
+  ['2027-03-13','Round 1','Whilton Mill','South',''],
+  ['2027-04-03','Round 1','Glan y Gors','North',''],
+  ['2027-04-18','Round 2','Rissington','South',''],
+  ['2027-05-09','Round 2','Rowrah','North',''],
+  ['2027-05-15','Round 3','Llandow','South',''],
+  ['2027-05-30','Round 3','PF International','North','Luke’s 14th birthday'],
+  ['2027-06-13','Round 4','Whilton Mill','North',''],
+  ['2027-06-27','Round 4','Shenington','South',''],
+  ['2027-07-17','Round 5','Warden Law','North',''],
+  ['2027-07-24','Round 5','Lydd','South',''],
+  ['2027-09-02','South Garda Karting event (to Sun 5 Sep)','Lonato, Italy','International','Entry confirmed'],
+  ['2027-09-19','Round 6','Ellough Park','South','Moved from 5 Sep'],
+  ['2027-10-02','Round 7','Buckmore Park','South',''],
+  ['2027-10-24','Round 6','Three Sisters','North',''],
+  ['2027-11-06','Round 7','Warden Law','North',''],
+  ['2027-11-21','Round 8','Silverstone','South','']
+];
+const TRIP = [
+  ['Sat 7 Aug','Hull to Rotterdam, P&O','1','Dog Friendly cabin',''],
+  ['Sun 8 to Wed 11 Aug','Spa-Francorchamps','3','Camping l’Eau Rouge','updating'],
+  ['Wed 11 to Sun 15 Aug','Nürburgring, Oldtimer Grand Prix','4','Camping am Nürburgring',''],
+  ['Sun 15 to Mon 16 Aug','Black Forest','1','To be confirmed','updating'],
+  ['Mon 16 to Wed 18 Aug','Sarnen, Lake Lucerne','2','Seefeld Park Sarnen (9.2/10)',''],
+  ['Wed 18 to Sat 21 Aug','Lauterbrunnen','3','Camping Jungfrau (9.3/10)',''],
+  ['Sat 21 to Mon 23 Aug','Zermatt, Aletsch Glacier on the way','2','To be confirmed','updating'],
+  ['Mon 23 to Wed 25 Aug','North Lake Como','2','Camping La Riva, Sorico',''],
+  ['Wed 25 to Thu 26 Aug','Halfway stop','1','To be confirmed','updating'],
+  ['Thu 26 to Sun 29 Aug','Dolomites','3','To be confirmed','updating'],
+  ['Sun 29 Aug to Mon 6 Sep','Lake Garda, race week','8','To be confirmed','updating'],
+  ['Mon 6 to Fri 10 Sep','New scenic return route','4','To be confirmed','updating'],
+  ['Fri 10 Sep','Rotterdam to Hull, P&O; home Sat 11 Sep','1','Dog Friendly cabin','']
+];
+const DEAD = [
+  ['2026-10-29','Claude checks P&O for 2027 sailings (computer must be online)','info','scheduled'],
+  ['2026-11-02','Insurance renewal: check 35-night trip cover','ok','reminder set'],
+  ['2026-12-14','Phone P&O: both sailings, Dog Friendly cabin','ok','reminder set'],
+  ['2027-01-11','Oldtimer GP tickets, Nürburgring camping, Lake Garda campsite','ok','reminder set'],
+  ['2027-02-01','Spa 2027 calendar and circuit tour','ok','reminder set'],
+  ['2027-04-12','Rishworth leave of absence (6 to 10 Sep)','ok','reminder set']
+];
+const BOOK = [
+  ['P&O Hull to Rotterdam, Sat 7 Aug','warn','not yet open','Phone from 14 Dec'],
+  ['P&O Rotterdam to Hull, Fri 10 Sep','warn','not yet open','Phone from 14 Dec'],
+  ['Club100 2027 registration, North and South','ok','registered','Done 28 Oct 2026'],
+  ['Club100 2027 round entries (all 15 rounds)','ok','confirmed','Done 28 Oct 2026'],
+  ['Oldtimer GP weekend tickets (2 adults)','warn','not on sale','From 11 Jan'],
+  ['Camping am Nürburgring, 11 to 15 Aug','info','to book','From 11 Jan'],
+  ['Spa circuit guided tour','warn','not yet open','From 1 Feb'],
+  ['Taxi lap with Misha (Track Speed)','info','enquiry sent','Awaiting reply'],
+  ['Other campsites','warn','being finalised','After research'],
+  ['Swiss heavy vehicle charge (PSVA), two bookings','info','to pay','Before 16 Aug'],
+  ['Donald: animal health certificate','info','to arrange','Vet 28 Jul to 7 Aug'],
+  ['Luke: South Garda Karting entry','ok','confirmed','']
+];
+const REM = [
+  ['2026-10-29','Claude checks P&O 2027 bookings (in the chat, 10:00)'],
+  ['2026-11-02','Insurance: 35 nights, Eric II, karting, Donald'],
+  ['2026-12-14','Phone P&O: both sailings, Dog Friendly cabin'],
+  ['2027-01-11','Oldtimer GP tickets; ask about Donald; book Nürburgring camping'],
+  ['2027-01-11','Book Lake Garda campsite'],
+  ['2027-02-01','Spa calendar; circuit tour; Stavelot museum'],
+  ['2027-04-12','Rishworth leave of absence, 6 to 10 Sep'],
+  ['2027-06-07','ETIAS: check and apply for all three'],
+  ['2027-07-12','Donald: book official vet for animal health certificate'],
+  ['2027-07-26','Wheel chock, fire extinguisher, pay Swiss PSVA'],
+  ['2027-08-16','South Garda event timetable'],
+  ['2027-08-23','Donald: book vet for tapeworm treatment (7 to 9 Sep)']
+];
+const CON = [
+  ['P&O Ferries (Hull)','Pet enquiries','+44 1304 448888','hostess.hull@poferries.com','https://www.poferries.com/en/routes/hull-to-rotterdam/travel-information/travelling-with-a-pet'],
+  ['South Garda Karting','Office closed at weekends','+39 030 9919958','info@southgardakarting.it','https://racing.southgardakarting.it/en'],
+  ['Club100','Registration and entries','+44 1795 883592','racing@club100.co.uk','https://club100.co.uk/'],
+  ['Nürburgring tickets','Oldtimer Grand Prix','+49 2691 302630','','https://www.nuerburgring.de/events/categories/oldtimer/oldtimer-grand-prix'],
+  ['Track Speed','Misha taxi laps','+49 1512 4189549','info@track-speed.com','https://track-speed.com/product/nurburgring-taxi-lap-misha-charoudin/'],
+  ['Rishworth School','Leave of absence','+44 1422 822217','','http://www.rishworth-school.co.uk/about/contact/leave-of-absence']
+];
+const DEC = [
+  ['28 Oct 2026','Travel in Eric II only; Lee, Deb, Luke and Donald go out and back together.'],
+  ['28 Oct 2026','Sail Hull to Rotterdam on Saturday 7 August 2027. Fixed.'],
+  ['28 Oct 2026','Return sailing Friday 10 September; home Saturday 11 September. Luke misses school 6 to 10 Sep.'],
+  ['28 Oct 2026','Spa (3 nights) and the Nürburgring Oldtimer Grand Prix (4 nights). No Zandvoort, no Le Mans.'],
+  ['28 Oct 2026','Dog Friendly cabin both ways; Donald never goes in kennels.'],
+  ['28 Oct 2026','Campsites: always best rated and best located, taking Eric II and Donald.'],
+  ['28 Oct 2026','Roads: maximum scenery both ways; return by a different route.'],
+  ['28 Oct 2026','Split Lake Como to the Dolomites with a halfway night on 25 Aug; Dolomites 3 nights.'],
+  ['28 Oct 2026','Add Aletsch Glacier and a Venice day trip as options; a don’t-miss list at every stop.'],
+  ['28 Oct 2026','Lee and Deb share the driving (both have C1).'],
+  ['28 Oct 2026','Emails are created as Gmail drafts for Lee to edit and send.'],
+  ['28 Oct 2026','Luke registered for both Club100 Junior championships (North and South) and booked and confirmed for all 2027 rounds.']
+];
+const GLO = [
+  ['AHC','Animal health certificate: Donald’s travel document from an official vet, issued within 10 days before sailing; covers the trip and return for 4 months.'],
+  ['C1','Licence category for vehicles 3.5 to 7.5 t. Needed for Eric II (7.2 t).'],
+  ['Class B','Italian motorway toll class for a 2-axle vehicle over 1.30 m high at the front axle: Eric II.'],
+  ['Dog Friendly cabin','P&O cabin where Donald sleeps with you. Six per ship; book early.'],
+  ['ETIAS','EU online travel authorisation for UK visitors. Not running on 28 Oct 2026; check in June 2027.'],
+  ['GO-Box','Austrian toll unit for vehicles over 3.5 t, charged per km. Only if the route uses Austria.'],
+  ['M1','EU vehicle category on Eric II’s V5C (field J). Keeps Eric II outside the Belgian kilometre charge.'],
+  ['Private HGV','UK tax class on Eric II’s V5C for a privately used vehicle over 3.5 t.'],
+  ['PSVA','Swiss heavy vehicle charge: CHF 3.25 a day, CHF 25 minimum per booking, consecutive days, paid via the Via portal before entering.'],
+  ['SLW / LW','Club100 weight classes: Super-Lightweight (60 kg racing weight) and Lightweight (70 kg). Luke races SLW.'],
+  ['Swiss Sunday and night ban','No driving over 3.5 t on Swiss roads on Sundays or 22:00 to 05:00. Motorhomes probably exempt; the plan avoids both.'],
+  ['Tapeworm treatment','Needed for Donald 24 to 120 hours before landing back in Great Britain.']
+];
+const el = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const now = new Date();
+let nextIdx = CAL.findIndex(r => D(r[0]) >= new Date(now.toDateString()));
+el('cal').innerHTML = CAL.map((r,i) => `<tr class="${D(r[0]) < new Date(now.toDateString()) ? 'past' : ''}${i===nextIdx?' next':''}"><td class="date">${fmt(D(r[0]))}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td><span class="tag">${esc(r[3])}</span></td><td>${esc(r[4])}</td></tr>`).join('');
+if (nextIdx >= 0) {
+  const r = CAL[nextIdx], days = Math.ceil((D(r[0]) - now) / 864e5);
+  el('nextName').textContent = `${r[3]} · ${r[1]}`;
+  el('nextWhen').innerHTML = `${esc(r[2])} · ${fmt(D(r[0]))} · <span class="count">${days} days</span>`;
+} else { el('nextName').textContent = 'Season complete'; }
+const sail = Math.ceil((D('2027-08-07') - now) / 864e5);
+el('tripCount').textContent = sail > 0 ? `in ${sail} days` : '';
+const tripRows = TRIP.map(r => `<tr><td class="date">${esc(r[0])}</td><td>${esc(r[1])}</td><td class="n">${r[2]}</td><td>${esc(r[3])} ${r[4]?'<span class="chip warn">updating</span>':''}</td></tr>`);
+const nights = TRIP.reduce((a,r)=>a+Number(r[2]),0);
+el('trip').innerHTML = tripRows.join('') + `<tr class="total"><td>Total</td><td>Sat 7 Aug to Sat 11 Sep</td><td class="n">${nights}</td><td></td></tr>`;
+el('deadlines').innerHTML = DEAD.filter(r => D(r[0]) >= new Date(now.toDateString())).map(r => `<tr><td class="date">${fmt(D(r[0]))}</td><td>${esc(r[1])}</td><td><span class="chip ${r[2]}">${esc(r[3])}</span></td></tr>`).join('');
+el('bookings').innerHTML = BOOK.map(r => `<tr><td>${esc(r[0])}</td><td><span class="chip ${r[1]}">${esc(r[2])}</span></td><td>${esc(r[3])}</td></tr>`).join('');
+el('reminders').innerHTML = REM.map(r => `<tr class="${D(r[0]) < new Date(now.toDateString()) ? 'past':''}"><td class="date">${fmt(D(r[0]))}</td><td>${esc(r[1])}</td></tr>`).join('');
+el('contacts').innerHTML = CON.map((c,i) => `<div class="contact"><b>${esc(c[0])}</b><span class="note">${esc(c[1])}</span><span class="sel" id="ph${i}">${esc(c[2])}</span>${c[3]?`<span class="sel" id="em${i}">${esc(c[3])}</span><button class="copy" data-t="${esc(c[3])}">Copy email</button>`:''}<a href="${c[4]}" target="_blank" rel="noopener">Website</a></div>`).join('');
+el('decisions').innerHTML = DEC.map(r => `<tr><td class="date">${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('');
+el('glossary').innerHTML = GLO.map(g => `<dt>${esc(g[0])}</dt><dd>${esc(g[1])}</dd>`).join('');
+document.addEventListener('click', e => {
+  const b = e.target.closest('.copy'); if (!b) return;
+  const done = () => { b.textContent = 'Copied'; setTimeout(()=>b.textContent='Copy email',1500); };
+  try { navigator.clipboard.writeText(b.dataset.t).then(done, () => { b.textContent = 'Select the address above'; }); } catch (_) { b.textContent = 'Select the address above'; }
+});
+const VIEWS = ['home','calendar','trip','bookings','reminders','contacts','costs','decisions','glossary','files'];
+function show() {
+  const h = location.hash.slice(1); const v = VIEWS.includes(h) ? h : 'home';
+  VIEWS.forEach(x => { el('v-'+x).hidden = x !== v; });
+  document.querySelectorAll('nav.tabs a').forEach(a => a.setAttribute('aria-current', a.getAttribute('href') === '#'+v ? 'page' : 'false'));
+  const cur = document.querySelector('nav.tabs a[aria-current="page"]'); if (cur && cur.scrollIntoView) cur.scrollIntoView({block:'nearest', inline:'nearest'});
+}
+window.addEventListener('hashchange', () => { show(); window.scrollTo(0,0); });
+show();
+</script>
+
+</body>
+</html>
