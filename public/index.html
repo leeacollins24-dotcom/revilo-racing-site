@@ -113,12 +113,21 @@ footer{background:var(--hero);color:var(--hero-ink)}
 footer .wrap{padding-block:32px calc(32px + env(safe-area-inset-bottom,0px));display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;font-size:.9rem}
 footer a{color:var(--accent)}
 
+/* podium + socials */
+.podium{margin:0;border-radius:8px;overflow:hidden;background:var(--panel);border:1px solid var(--line)}
+.podium img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:50% 30%}
+.podium figcaption{padding:10px 14px;font-weight:600;font-size:.9rem;color:var(--muted)}
+.socials{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.socials a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;padding:9px 14px;border:1px solid var(--line);border-radius:999px;background:var(--panel)}
+.socials svg{width:18px;height:18px;fill:currentColor}
+footer .socials a{background:transparent;border-color:rgba(255,255,255,.2);color:var(--hero-ink)}
 /* dynamic hero */
 .hero{min-height:min(92vh,860px);display:flex;flex-direction:column;justify-content:flex-end;isolation:isolate}
 .herogrid{position:relative;z-index:2}
 .slides{position:absolute;inset:0;z-index:0}
 .slides img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity 1.6s ease,transform 7s ease-out}
-.slides img.on{opacity:.55;transform:scale(1)}
+.slides img.on{opacity:.8;transform:scale(1)}
+.slides img{object-position:65% 50%}
 .hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,var(--hero) 15%,transparent 75%),linear-gradient(0deg,var(--hero),transparent 45%);pointer-events:none}
 .speed{position:absolute;inset:0;width:100%;height:100%;z-index:1;opacity:.35}
 .speed rect{fill:var(--accent)}
@@ -200,8 +209,11 @@ footer a{color:var(--accent)}
         <h2>Luke</h2>
         <p>Luke drives in Club100, the arrive-and-drive championship where every kart is prepared and allocated by the organisers, so results come down to the driver. For 2027 he is registered for both Junior championships and is entered for every round.</p>
         <p>The season runs from the January opener to the Silverstone finale in November, taking in circuits from Rowrah in Cumbria to Llandow in Wales, with the Rotax Racing World Finals at South Garda Karting, Lonato, in September.</p>
+        <p style="margin-bottom:0"><b>Follow Luke: @24lc_racing</b></p>
+        <div class="socials"><a href="https://www.instagram.com/24lc_racing/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM12 2c-2.7 0-3.1 0-4.1.1C4.6 2.2 2.2 4.6 2.1 7.9 2 8.9 2 9.3 2 12s0 3.1.1 4.1c.1 3.3 2.5 5.7 5.8 5.8 1 .1 1.4.1 4.1.1s3.1 0 4.1-.1c3.3-.1 5.7-2.5 5.8-5.8.1-1 .1-1.4.1-4.1s0-3.1-.1-4.1c-.1-3.3-2.5-5.7-5.8-5.8C15.1 2 14.7 2 12 2zm0 1.8c2.7 0 3 0 4 .1 2.3.1 3.9 1.7 4 4 .1 1 .1 1.3.1 4s0 3-.1 4c-.1 2.3-1.7 3.9-4 4-1 .1-1.3.1-4 .1s-3 0-4-.1c-2.3-.1-3.9-1.7-4-4-.1-1-.1-1.3-.1-4s0-3 .1-4c.1-2.3 1.7-3.9 4-4 1-.1 1.3-.1 4-.1z"/></svg>Instagram</a><a href="https://www.tiktok.com/@24lc_racing" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2h-3.3v13.4a2.9 2.9 0 1 1-2-2.8V9.2a6.2 6.2 0 1 0 5.3 6.2V8.6a7.9 7.9 0 0 0 4.4 1.4V6.7a4.5 4.5 0 0 1-4.4-4.7z"/></svg>TikTok</a></div>
       </div>
       <div>
+        <figure class="podium rv"><img src="img/podium.jpg" alt="Luke on the top step of the podium at Kart Silverstone" loading="lazy"><figcaption>Top step at Kart Silverstone</figcaption></figure>
         <div class="stats" id="stats"></div>
       </div>
     </div>
@@ -279,7 +291,7 @@ footer a{color:var(--accent)}
 <footer>
   <div class="wrap">
     <div>© <span id="yr"></span> Revilo Racing · #24LC Racing</div>
-    <div><a href="/family/">Family login</a></div>
+    <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><div class="socials" style="margin:0"><a href="https://www.instagram.com/24lc_racing/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM12 2c-2.7 0-3.1 0-4.1.1C4.6 2.2 2.2 4.6 2.1 7.9 2 8.9 2 9.3 2 12s0 3.1.1 4.1c.1 3.3 2.5 5.7 5.8 5.8 1 .1 1.4.1 4.1.1s3.1 0 4.1-.1c3.3-.1 5.7-2.5 5.8-5.8.1-1 .1-1.4.1-4.1s0-3.1-.1-4.1c-.1-3.3-2.5-5.7-5.8-5.8C15.1 2 14.7 2 12 2zm0 1.8c2.7 0 3 0 4 .1 2.3.1 3.9 1.7 4 4 .1 1 .1 1.3.1 4s0 3-.1 4c-.1 2.3-1.7 3.9-4 4-1 .1-1.3.1-4 .1s-3 0-4-.1c-2.3-.1-3.9-1.7-4-4-.1-1-.1-1.3-.1-4s0-3 .1-4c.1-2.3 1.7-3.9 4-4 1-.1 1.3-.1 4-.1z"/></svg>Instagram</a><a href="https://www.tiktok.com/@24lc_racing" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2h-3.3v13.4a2.9 2.9 0 1 1-2-2.8V9.2a6.2 6.2 0 1 0 5.3 6.2V8.6a7.9 7.9 0 0 0 4.4 1.4V6.7a4.5 4.5 0 0 1-4.4-4.7z"/></svg>TikTok</a></div><a href="/family/">Family login</a></div>
   </div>
 </footer>
 
@@ -333,12 +345,14 @@ document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('clic
 drawCal();
 
 // stats
-const n = s => CAL.filter(r=>r[3]===s||(r[3]==='Both'&&s!=='International')).length;
+const isRound=r=>/^Round/.test(r[1]);
+const nN=CAL.filter(r=>r[3]==='North'&&isRound(r)).length, nS=CAL.filter(r=>r[3]==='South'&&isRound(r)).length;
+const nI=CAL.filter(r=>r[3]==='International').length, nO=CAL.length-nN-nS-nI;
 const circuits = new Set(CAL.map(r=>r[2])).size;
 document.getElementById('stats').innerHTML = [
-  [n('North'),'Northern events'],[n('South'),'Southern events'],[n('International'),'International'],[CAL.length,'Events in total']
+  [nN,'Northern rounds'],[nS,'Southern rounds'],[nO,'Test and Academy days'],[nI,'World Finals']
 ].map(([v,l])=>`<div class="stat"><b>${v}</b><span class="label">${l}</span></div>`).join('') +
-`<div class="stat" style="grid-column:1/-1"><b>${circuits}</b><span class="label">Different circuits in 2027</span></div>`;
+`<div class="stat" style="grid-column:1/-1"><b>${CAL.length}</b><span class="label">Events in total, at ${circuits} circuits</span></div>`;
 
 // next race
 (function(){
@@ -374,7 +388,7 @@ document.getElementById('enq').addEventListener('submit', async e=>{
   }catch(_){ m.textContent = CONTACT_EMAIL ? `Sorry, that did not send. Please email ${CONTACT_EMAIL}.` : 'Sorry, enquiries are not switched on yet. Please try again soon.'; }
 });
 /* Edit here: hero photos, files in /img/ (e.g. 'img/hero-1.jpg') */
-const HERO = [];
+const HERO = ['img/hero-1.jpg','img/hero-2.jpg','img/hero-3.jpg'];
 (function(){
   const box=document.getElementById('slides'); if(!HERO.length) return;
   HERO.forEach((src,i)=>{const im=new Image(); im.src=src; im.alt=''; if(i===0) im.className='on'; box.appendChild(im);});
