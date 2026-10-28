@@ -130,6 +130,9 @@ footer .socials a{background:transparent;border-color:rgba(255,255,255,.2);color
 .g:hover img{transform:scale(1.04)}
 .g.tall{grid-row:span 2}.g.wide{grid-column:span 2}.g.full{grid-column:1/-1;grid-row:span 2}
 @media (max-width:720px){.gallery{grid-template-columns:1fr 1fr;grid-auto-rows:160px}.g.wide{grid-column:span 2}}
+.resban{margin:0 0 20px;position:relative;border-radius:8px;overflow:hidden;height:clamp(180px,32vw,340px)}
+.resban img{width:100%;height:100%;object-fit:cover;object-position:50% 45%;display:block}
+.resban figcaption{position:absolute;left:16px;bottom:14px;color:#fff;font:800 clamp(1.4rem,3.5vw,2.2rem) "Barlow Condensed",sans-serif;font-style:italic;text-transform:uppercase;text-shadow:0 2px 12px rgba(0,0,0,.6)}
 /* dynamic hero */
 .hero{min-height:min(92vh,860px);display:flex;flex-direction:column;justify-content:flex-end;isolation:isolate}
 .herogrid{position:relative;z-index:2}
@@ -237,6 +240,7 @@ footer .socials a{background:transparent;border-color:rgba(255,255,255,.2);color
         <figure class="g wide"><img style="object-position:50% 25%" src="img/kart8.jpg" alt="Luke on track in kart 8" loading="lazy"></figure>
         <figure class="g"><img src="img/hero-3.jpg" alt="Luke giving a thumbs up from his kart" loading="lazy"></figure>
         <figure class="g"><img src="img/hero-2.jpg" alt="Luke on track at Silverstone" loading="lazy"></figure>
+        <figure class="g full"><img style="object-position:50% 45%" src="img/win.jpg" alt="Luke celebrating with arms out as he crosses the line in kart 8" loading="lazy"></figure>
         <figure class="g full"><img src="img/hero-1.jpg" alt="Luke racing wheel to wheel at Silverstone" loading="lazy"></figure>
       </div>
     </div>
@@ -266,6 +270,7 @@ footer .socials a{background:transparent;border-color:rgba(255,255,255,.2);color
   <section id="results">
     <div class="wrap">
       <div class="head"><div><div class="label">Round by round</div><h2>Results</h2></div></div>
+      <figure class="resban rv"><img src="img/win.jpg" alt="" loading="lazy"><figcaption>Arms out across the line</figcaption></figure>
       <div class="tbl"><table>
         <thead><tr><th>Round</th><th>Circuit</th><th>Series</th><th>Qualifying</th><th>Final</th><th>Points</th></tr></thead>
         <tbody id="res"></tbody>
@@ -411,7 +416,7 @@ document.getElementById('enq').addEventListener('submit', async e=>{
   }catch(_){ m.textContent = CONTACT_EMAIL ? `Sorry, that did not send. Please email ${CONTACT_EMAIL}.` : 'Sorry, enquiries are not switched on yet. Please try again soon.'; }
 });
 /* Edit here: hero photos, files in /img/ (e.g. 'img/hero-1.jpg') */
-const HERO = ['img/helmet.jpg','img/kart8.jpg','img/hero-1.jpg','img/hero-2.jpg','img/hero-3.jpg'];
+const HERO = ['img/helmet.jpg','img/kart8.jpg','img/win.jpg','img/hero-1.jpg','img/hero-2.jpg','img/hero-3.jpg'];
 (function(){
   const box=document.getElementById('slides'); if(!HERO.length) return;
   HERO.forEach((src,i)=>{const im=new Image(); im.src=src; im.alt=''; if(/helmet/.test(src)) im.style.objectPosition=matchMedia('(max-width:720px)').matches?'62% 30%':'50% 42%'; if(i===0) im.className='on'; box.appendChild(im);});
