@@ -207,7 +207,6 @@ h2{font-size:clamp(1.3rem,2.8vw,1.9rem);letter-spacing:-.01em}
   .lamps i{width:12px;height:12px}
   .clock{gap:10px}.clock b{font-size:1.5rem}
   .clockfor{grid-column:2;margin-top:6px;font-size:.85rem}
-  .ticker{display:none}
 }
 @media (max-width:960px){nav ul{gap:4px 12px}nav a{font-size:.78rem;letter-spacing:.04em}}
 @media (max-width:720px){
@@ -237,7 +236,8 @@ h2{font-size:clamp(1.3rem,2.8vw,1.9rem);letter-spacing:-.01em}
   .slides::after{display:none}
   .slides img,.slides img.on{transform:none!important}
   .hero .wrap.herogrid{grid-template-columns:1fr!important;align-content:center;align-items:center}
-  .herotext,.lights{max-width:min(36vw,500px)}
+  .herotext,.lights{max-width:min(38vw,520px)}
+  .hero h1{font-size:clamp(1.6rem,3vw,3rem)!important}
   .lights{width:100%;background:rgba(255,255,255,.04)}
   .lights{justify-self:start!important;margin-top:clamp(14px,3vh,28px)}
   .herogrid{display:flex!important;flex-direction:column;justify-content:center;align-items:flex-start!important}
@@ -249,6 +249,13 @@ h2{font-size:clamp(1.3rem,2.8vw,1.9rem);letter-spacing:-.01em}
   .lights{justify-self:stretch;max-width:none}
 }
 @media (max-width:720px){.herotext p{display:none}}
+/* ticker always pinned to the bottom of the hero */
+.hero{position:relative}
+.ticker{position:absolute!important;left:0;right:0;bottom:18px;margin:0!important;z-index:3;background:rgba(10,11,13,.85);padding-block:10px!important}
+.chequer{position:absolute;left:0;right:0;bottom:0;z-index:3}
+.hero .wrap.herogrid{padding-bottom:calc(18px + 46px + clamp(10px,2vh,24px))!important}
+@media (max-width:720px){.track{font-size:.85rem}.ticker{padding-block:8px!important}.hero .wrap.herogrid{padding-bottom:calc(18px + 38px + 10px)!important}}
+@media (max-height:760px) and (min-width:721px){.herotext p{display:none}}
 
 .stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 .stat .label{display:block;line-height:1.35;margin-top:6px}
