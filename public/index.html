@@ -124,6 +124,12 @@ footer .socials a{background:transparent;border-color:rgba(255,255,255,.2);color
 .duo{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .duo > *{min-width:0}
 .podium.tall img{aspect-ratio:3/4;object-position:50% 25%}
+.gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:220px;gap:12px}
+.g{margin:0;border-radius:8px;overflow:hidden;background:var(--panel)}
+.g img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+.g:hover img{transform:scale(1.04)}
+.g.tall{grid-row:span 2}.g.wide{grid-column:span 2}.g.full{grid-column:1/-1;grid-row:span 2}
+@media (max-width:720px){.gallery{grid-template-columns:1fr 1fr;grid-auto-rows:160px}.g.wide{grid-column:span 2}}
 /* dynamic hero */
 .hero{min-height:min(92vh,860px);display:flex;flex-direction:column;justify-content:flex-end;isolation:isolate}
 .herogrid{position:relative;z-index:2}
@@ -169,6 +175,7 @@ footer .socials a{background:transparent;border-color:rgba(255,255,255,.2);color
     <a class="brand" href="#top">Revilo <span>Racing</span></a>
     <nav aria-label="Main"><ul>
       <li><a href="#driver">Driver</a></li>
+      <li><a href="#gallery">Gallery</a></li>
       <li><a href="#calendar">Calendar</a></li>
       <li><a href="#results">Results</a></li>
       <li><a href="#partners">Partners</a></li>
@@ -218,6 +225,19 @@ footer .socials a{background:transparent;border-color:rgba(255,255,255,.2);color
       <div>
         <div class="duo rv"><figure class="podium tall"><img src="img/helmet.jpg" alt="Luke in his helmet and race suit before a session" loading="lazy"><figcaption>Ready to go</figcaption></figure><figure class="podium tall"><img src="img/podium.jpg" alt="Luke on the top step of the podium at Kart Silverstone" loading="lazy"><figcaption>Top step at Kart Silverstone</figcaption></figure></div>
         <div class="stats" id="stats"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="wrap">
+      <div class="head"><div><div class="label">On track and in the paddock</div><h2>Gallery</h2></div></div>
+      <div class="gallery">
+        <figure class="g tall"><img src="img/helmet-2.jpg" alt="Luke putting on his helmet in the paddock" loading="lazy"></figure>
+        <figure class="g wide"><img style="object-position:50% 25%" src="img/kart8.jpg" alt="Luke on track in kart 8" loading="lazy"></figure>
+        <figure class="g"><img src="img/hero-3.jpg" alt="Luke giving a thumbs up from his kart" loading="lazy"></figure>
+        <figure class="g"><img src="img/hero-2.jpg" alt="Luke on track at Silverstone" loading="lazy"></figure>
+        <figure class="g full"><img src="img/hero-1.jpg" alt="Luke racing wheel to wheel at Silverstone" loading="lazy"></figure>
       </div>
     </div>
   </section>
@@ -391,10 +411,10 @@ document.getElementById('enq').addEventListener('submit', async e=>{
   }catch(_){ m.textContent = CONTACT_EMAIL ? `Sorry, that did not send. Please email ${CONTACT_EMAIL}.` : 'Sorry, enquiries are not switched on yet. Please try again soon.'; }
 });
 /* Edit here: hero photos, files in /img/ (e.g. 'img/hero-1.jpg') */
-const HERO = matchMedia('(max-width:720px)').matches ? ['img/helmet.jpg','img/hero-2.jpg','img/hero-1.jpg'] : ['img/hero-1.jpg','img/hero-2.jpg','img/hero-3.jpg'];
+const HERO = ['img/helmet.jpg','img/kart8.jpg','img/hero-1.jpg','img/hero-2.jpg','img/hero-3.jpg'];
 (function(){
   const box=document.getElementById('slides'); if(!HERO.length) return;
-  HERO.forEach((src,i)=>{const im=new Image(); im.src=src; im.alt=''; if(i===0) im.className='on'; box.appendChild(im);});
+  HERO.forEach((src,i)=>{const im=new Image(); im.src=src; im.alt=''; if(/helmet/.test(src)) im.style.objectPosition=matchMedia('(max-width:720px)').matches?'62% 30%':'50% 42%'; if(i===0) im.className='on'; box.appendChild(im);});
   let i=0; const ims=box.children; if(ims.length<2) return;
   setInterval(()=>{ims[i].classList.remove('on'); i=(i+1)%ims.length; ims[i].classList.add('on');},6000);
 })();
@@ -416,7 +436,7 @@ const HERO = matchMedia('(max-width:720px)').matches ? ['img/helmet.jpg','img/he
 })();
 // reveal on scroll
 (function(){
-  document.querySelectorAll('section .head, .stat, .pack, .tbl, .next, #driver .cols > div').forEach(el=>el.classList.add('rv'));
+  document.querySelectorAll('section .head, .stat, .pack, .tbl, .next, .g, #driver .cols > div').forEach(el=>el.classList.add('rv'));
   const els=document.querySelectorAll('.rv');
   if(!('IntersectionObserver' in window)){els.forEach(e=>e.classList.add('in'));return;}
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
