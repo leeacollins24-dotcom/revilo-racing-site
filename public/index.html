@@ -92,6 +92,19 @@ tfoot td{font-weight:700;border-bottom:0;background:var(--bg)}
 .filters button{font:600 .85rem Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:8px 14px;border-radius:4px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
 .filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .note{color:var(--muted);font-size:.92rem;margin-top:12px}
+.rsh{font-size:1.05rem;margin:32px 0 12px}
+.stats.rs{grid-template-columns:repeat(3,minmax(0,1fr))!important;margin:0 0 8px}
+@media (max-width:560px){.stats.rs{grid-template-columns:1fr!important}}
+th.r,td.r{text-align:right;font-variant-numeric:tabular-nums}
+tr.dim td{color:var(--muted)}
+td.rd b{display:block}
+td.rd span,.pt{display:block;font-size:.8rem;color:var(--muted);white-space:nowrap}
+#y2026 table{min-width:0}
+#y2026 td{white-space:nowrap}
+#y2026 td:nth-child(2),#y2026 tfoot td{white-space:normal}
+#y2026 th{letter-spacing:.06em}
+@media (max-width:560px){#y2026 th,#y2026 td{padding-left:8px;padding-right:8px}#y2026 table{font-size:.9rem}}
+.p1{font-weight:700;color:var(--red)}
 
 /* sponsors */
 .packs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
@@ -359,14 +372,41 @@ h2{font-size:clamp(1.3rem,2.8vw,1.9rem);letter-spacing:-.01em}
 
   <section id="results">
     <div class="wrap">
-      <div class="head"><div><div class="label">Round by round</div><h2>Results</h2></div></div>
+      <div class="head">
+        <div><div class="label">Round by round</div><h2>Results</h2></div>
+        <div class="filters" id="seasonTabs" role="tablist" aria-label="Season">
+          <button role="tab" data-y="2026" aria-pressed="true" aria-selected="true">2026</button>
+          <button role="tab" data-y="2027" aria-pressed="false" aria-selected="false">2027</button>
+        </div>
+      </div>
       <figure class="resban rv"><img src="img/win.jpg" alt="" loading="lazy"><figcaption>Arms out across the line</figcaption></figure>
-      <div class="tbl"><table>
-        <thead><tr><th>Round</th><th>Circuit</th><th>Series</th><th>Qualifying</th><th>Final</th><th>Points</th></tr></thead>
-        <tbody id="res"></tbody>
-        <tfoot><tr><td colspan="5">Season total</td><td id="resTotal">0</td></tr></tfoot>
-      </table></div>
-      <p class="note" id="resNote"></p>
+
+      <div id="y2026" role="tabpanel">
+        <div class="stats rs"><div class="stat"><b>Champion</b><span class="label">Cadet Lightweight North</span></div><div class="stat"><b>1st</b><span class="label">Cadet Lightweight South, 2 rounds to go</span></div><div class="stat"><b id="w26">0</b><span class="label">Race wins in 2026</span></div></div>
+        <h3 class="rsh">Club100 Cadet Lightweight Northern Championship</h3>
+        <div class="tbl"><table>
+          <thead><tr><th>Round</th><th>Circuit</th><th>Race 1</th><th>Race 2</th><th class="r">Pts</th></tr></thead>
+          <tbody id="resN26"></tbody>
+          <tfoot><tr><td colspan="4">Total points scored</td><td class="r" id="totN26"></td></tr></tfoot>
+        </table></div>
+        <p class="note">Final position: 1st, 1,287 championship points (best 10 of 14 races count). Kart 8.</p>
+        <h3 class="rsh">Club100 Cadet Lightweight Southern Championship</h3>
+        <div class="tbl"><table>
+          <thead><tr><th>Round</th><th>Circuit</th><th>Race 1</th><th>Race 2</th><th class="r">Pts</th></tr></thead>
+          <tbody id="resS26"></tbody>
+          <tfoot><tr><td colspan="4">Total points scored so far</td><td class="r" id="totS26"></td></tr></tfoot>
+        </table></div>
+        <p class="note">Current position: 1st, 776 championship points with two rounds to go. Kart 24. Results from Alpha Timing.</p>
+      </div>
+
+      <div id="y2027" role="tabpanel" hidden>
+        <div class="tbl"><table>
+          <thead><tr><th>Round</th><th>Circuit</th><th>Series</th><th>Qualifying</th><th>Final</th><th>Points</th></tr></thead>
+          <tbody id="res"></tbody>
+          <tfoot><tr><td colspan="5">Season total</td><td id="resTotal">0</td></tr></tfoot>
+        </table></div>
+        <p class="note" id="resNote"></p>
+      </div>
     </div>
   </section>
 
@@ -441,7 +481,29 @@ const CAL = [
   ['2027-11-06','Round 7','Warden Law','North'],
   ['2027-11-20','Round 8','Silverstone','South']
 ];
-/* Edit here: results [date ISO, round, circuit, series, qualifying, final, points] */
+/* Edit here: 2026 results [date ISO, round, circuit, race 1 [points, position], race 2 [points, position], note]. Empty race = no result. */
+const RES26 = {
+  N: [
+    ['2026-02-28','Round 1','Silverstone',[130,1],[126,4]],
+    ['2026-04-11','Round 2','Whilton Mill',[127,3],[130,1]],
+    ['2026-05-09','Round 3','Glan y Gors',[130,1],[130,1]],
+    ['2026-07-18','Round 4','Rowrah',[130,1],[128,2]],
+    ['2026-08-15','Round 5','Glan y Gors',null,null,'No result'],
+    ['2026-08-30','Round 6','PF International',[130,1],[125,5]],
+    ['2026-09-26','Round 7','Warden Law',[120,10],[126,4]]
+  ],
+  S: [
+    ['2026-03-15','Round 1','Whilton Mill',[128,2],[128,2]],
+    ['2026-05-02','Round 2','Shenington',[130,1],[127,3]],
+    ['2026-06-07','Round 3','Dunkeswell',null,null,'Cancelled'],
+    ['2026-06-27','Round 4','Rissington',[125,5],[130,1]],
+    ['2026-08-02','Round 5','Llandow',[119,11],[124,6]],
+    ['2026-09-12','Round 6','Lydd',[130,1],[130,1]],
+    ['2026-11-01','Round 7','Buckmore Park',null,null,'To come'],
+    ['2026-11-21','Round 8','Silverstone',null,null,'To come']
+  ]
+};
+/* Edit here: 2027 results [date ISO, round, circuit, series, qualifying, final, points] */
 const RES = [];
 
 const fmt = d => new Date(d+'T12:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
@@ -461,8 +523,8 @@ function drawCal(){
   }).join('');
   document.getElementById('calTotal').textContent = `Total: ${rows.length} event${rows.length===1?'':'s'}`;
 }
-document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>{
-  filter=b.dataset.f; document.querySelectorAll('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b)); drawCal();
+document.querySelectorAll('#calendar .filters button').forEach(b=>b.addEventListener('click',()=>{
+  filter=b.dataset.f; document.querySelectorAll('#calendar .filters button').forEach(x=>x.setAttribute('aria-pressed',x===b)); drawCal();
 }));
 drawCal();
 
@@ -484,6 +546,30 @@ document.getElementById('stats').innerHTML = [
   const days = Math.round((new Date(nx[0]+'T00:00:00')-today)/864e5);
   el.innerHTML = `<div><div class="label" style="color:var(--accent)">Next up</div><h3>${nx[1]} · ${nx[2]}</h3><div class="mono" style="opacity:.8">${span(nx[0],nx[3])} 2027</div></div>
   <div class="count"><div><b>${days}</b><span class="label" style="color:inherit;opacity:.7">days to go</span></div></div>`;
+})();
+
+// 2026 results
+(function(){
+  const ord=n=>n+(n%100>10&&n%100<14?'th':['th','st','nd','rd'][n%10]||'th');
+  const cell=r=>r?`<span class="${r[1]===1?'p1':''}">${ord(r[1])}</span><span class="pt">${r[0]}</span>`:'';
+  const d=x=>new Date(x+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+  let wins=0;
+  [['N','resN26','totN26'],['S','resS26','totS26']].forEach(([k,tb,tt])=>{
+    let t=0;
+    document.getElementById(tb).innerHTML=RES26[k].map(r=>{
+      const pts=(r[3]?r[3][0]:0)+(r[4]?r[4][0]:0); t+=pts;
+      [r[3],r[4]].forEach(x=>{if(x&&x[1]===1)wins++;});
+      const body=r[3]||r[4]?`<td>${cell(r[3])}</td><td>${cell(r[4])}</td><td class="r">${pts}</td>`:`<td colspan="2">${r[5]||''}</td><td class="r">0</td>`;
+      return `<tr class="${r[3]||r[4]?'':'dim'}"><td class="rd"><b>${r[1].replace('Round ','R')}</b><span>${d(r[0])}</span></td><td>${r[2]}</td>${body}</tr>`;
+    }).join('');
+    document.getElementById(tt).textContent=t.toLocaleString('en-GB');
+  });
+  document.getElementById('w26').textContent=wins;
+  document.querySelectorAll('#seasonTabs button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('#seasonTabs button').forEach(x=>{const on=x===b;x.setAttribute('aria-pressed',on);x.setAttribute('aria-selected',on);});
+    document.getElementById('y2026').hidden=b.dataset.y!=='2026';
+    document.getElementById('y2027').hidden=b.dataset.y!=='2027';
+  }));
 })();
 
 // results
