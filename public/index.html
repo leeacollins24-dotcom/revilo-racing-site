@@ -31,6 +31,8 @@ a{color:inherit}
 h1,h2,h3{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;text-transform:uppercase;letter-spacing:.01em;line-height:1;text-wrap:balance;margin:0}
 h2{font-size:clamp(2rem,5vw,3rem);font-weight:800;font-style:normal}
 .label{font:600 .78rem/1 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.champ{display:inline-flex;align-items:center;gap:8px;margin-bottom:14px;padding:8px 14px 8px 10px;border-radius:999px;background:var(--accent);color:var(--accent-ink);font:700 .8rem/1 Archivo,"Helvetica Neue",Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;box-shadow:0 4px 18px rgba(0,0,0,.35)}
+.champ svg{width:18px;height:18px;fill:currentColor;flex:none}
 .mono{font-family:Archivo,"Helvetica Neue",Arial,sans-serif}
 
 /* nav */
@@ -93,6 +95,8 @@ tfoot td{font-weight:700;border-bottom:0;background:var(--bg)}
 .filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .note{color:var(--muted);font-size:.92rem;margin-top:12px}
 .rsh{font-size:1.05rem;margin:32px 0 12px}
+.stat.champtile{background:var(--accent);border-left-color:var(--accent)}
+.stat.champtile b,.stat.champtile .label{color:var(--accent-ink)}
 .stats.rs{grid-template-columns:repeat(3,minmax(0,1fr))!important;margin:0 0 8px}
 @media (max-width:560px){.stats.rs{grid-template-columns:1fr!important}}
 th.r,td.r{text-align:right;font-variant-numeric:tabular-nums}
@@ -267,7 +271,8 @@ h2{font-size:clamp(1.3rem,2.8vw,1.9rem);letter-spacing:-.01em}
 .chequer{position:absolute;left:0;right:0;bottom:0;z-index:3}
 .hero .wrap.herogrid{padding-bottom:calc(18px + 46px + clamp(10px,2vh,24px))!important}
 @media (max-width:720px){.track{font-size:.85rem}.ticker{padding-block:8px!important}.hero .wrap.herogrid{padding-bottom:calc(18px + 38px + 10px)!important}}
-@media (max-height:760px) and (min-width:721px){.herotext p{display:none}}
+@media (max-height:900px) and (min-width:721px) and (min-aspect-ratio:1/1){.herotext p{display:none}}
+@media (max-height:800px) and (min-width:721px) and (min-aspect-ratio:1/1){.lamps{display:none!important}.champ{margin-bottom:8px;padding-block:6px}}
 
 .stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 .stat .label{display:block;line-height:1.35;margin-top:6px}
@@ -302,6 +307,7 @@ h2{font-size:clamp(1.3rem,2.8vw,1.9rem);letter-spacing:-.01em}
     </svg>
     <div class="wrap herogrid">
       <div class="herotext">
+        <a class="champ rv" href="#results"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10v2h4v3a5 5 0 0 1-4.6 5 5 5 0 0 1-3.4 2.9V18h3v2H8v-2h3v-3.1A5 5 0 0 1 7.6 12 5 5 0 0 1 3 7V4h4V2zm0 4H5v1a3 3 0 0 0 2 2.8V6zm10 0v3.8A3 3 0 0 0 19 7V6h-2z"/></svg>2026 Club100 Northern Champion</a>
         <div class="label rv" style="color:var(--accent)">2027 season · Club100 Junior SLW</div>
         <h1 class="rv">Revilo Racing<br><em>#24LC</em> Racing</h1>
         <p class="rv">Luke races in the Club100 Junior Super-Lightweight class, entered in both the Northern and Southern championships for 2027, plus the Rotax Racing World Finals at South Garda Karting in Italy.</p>
@@ -323,6 +329,7 @@ h2{font-size:clamp(1.3rem,2.8vw,1.9rem);letter-spacing:-.01em}
       <div>
         <div class="label">The driver</div>
         <h2>Luke</h2>
+        <p><b>2026 Club100 Cadet Lightweight Northern Champion.</b> Luke took the Northern title with six race wins, and leads the Southern Championship going into the last two rounds.</p>
         <p>Luke drives in Club100, the arrive-and-drive championship where every kart is prepared and allocated by the organisers, so results come down to the driver. For 2027 he is registered for both Junior championships and is entered for every round.</p>
         <p>The season runs from the January opener to the Silverstone finale in November, taking in circuits from Rowrah in Cumbria to Llandow in Wales, with the Rotax Racing World Finals at South Garda Karting, Lonato, in September.</p>
         <p style="margin-bottom:0"><b>Follow Luke:</b> Instagram @24lc_racing · TikTok @24lcracing</p>
@@ -382,7 +389,7 @@ h2{font-size:clamp(1.3rem,2.8vw,1.9rem);letter-spacing:-.01em}
       <figure class="resban rv"><img src="img/win.jpg" alt="" loading="lazy"><figcaption>Arms out across the line</figcaption></figure>
 
       <div id="y2026" role="tabpanel">
-        <div class="stats rs"><div class="stat"><b>Champion</b><span class="label">Cadet Lightweight North</span></div><div class="stat"><b>1st</b><span class="label">Cadet Lightweight South, 2 rounds to go</span></div><div class="stat"><b id="w26">0</b><span class="label">Race wins in 2026</span></div></div>
+        <div class="stats rs"><div class="stat champtile"><b>Champion</b><span class="label">Club100 Cadet Lightweight Northern Championship 2026</span></div><div class="stat"><b>1st</b><span class="label">Cadet Lightweight South, 2 rounds to go</span></div><div class="stat"><b id="w26">0</b><span class="label">Race wins in 2026</span></div></div>
         <h3 class="rsh">Club100 Cadet Lightweight Northern Championship</h3>
         <div class="tbl"><table>
           <thead><tr><th>Round</th><th>Circuit</th><th>Race 1</th><th>Race 2</th><th class="r">Pts</th></tr></thead>
@@ -620,7 +627,7 @@ const FOCUS = {'img/helmet.jpg':'72% 38%','img/kart8.jpg':'52% 45%','img/win.jpg
 // ticker
 (function(){
   const up=CAL.filter(r=>new Date(r[0]+'T23:59:59')>=new Date());
-  const html=up.map(r=>`<span><b>${fmt(r[0])}</b>${r[2]}</span>`).join('');
+  const html='<span><b>2026</b>Club100 Cadet Lightweight Northern Champion</span>'+up.map(r=>`<span><b>${fmt(r[0])}</b>${r[2]}</span>`).join('');
   document.getElementById('ticker').innerHTML=html+html;
 })();
 // reveal on scroll
